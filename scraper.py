@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 def clean_text(text):
-    # عجیب کریکٹرز اور سمارٹ کوٹس کو عام ٹیکسٹ سے تبدیل کرنے کا فنکشن
     if text:
         text = text.replace('“', '"').replace('”', '"')
         text = text.replace('’', "'").replace('‘', "'")
@@ -23,8 +22,6 @@ def scrape_quotes():
         for q in quotes:
             raw_text = q.find('span', class_='text').text
             raw_author = q.find('small', class_='author').text
-            
-            # ٹیکسٹ کو صاف کریں
             clean_quote = clean_text(raw_text)
             clean_author = clean_text(raw_author)
             
@@ -34,7 +31,6 @@ def scrape_quotes():
             })
             
         df = pd.DataFrame(quotes_list)
-        # CSV فائل سیو کریں
         df.to_csv('quotes_output.csv', index=False, encoding='utf-8-sig')
         print("Scraping Complete! Clean data saved to 'quotes_output.csv'")
     else:
